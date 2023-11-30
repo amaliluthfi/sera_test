@@ -1,14 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sera_test/core/session/storage/session_storage.dart';
 
 class AppNetwork {
   final String url = "https://api.escuelajs.co/api/v1";
+  final String? _accessToken = SessionStorage().getAccessToken();
   final Dio _dio = Dio();
 
-  Future get({required String path, Map<String, dynamic>? data}) async {
+  Future get(
+      {required String path,
+      Map<String, dynamic>? data,
+      Map<String, dynamic>? params}) async {
     try {
+      debugPrint("$path $params");
       var res = await _dio.get("$url$path",
-          data: data, options: Options(headers: {"Authorization": ""}));
+          data: data,
+          queryParameters: params,
+          options: Options(headers: {"Authorization": "Bearer $_accessToken"}));
+
+      debugPrint("search network result ${res.requestOptions.uri}");
 
       return res.data;
     } on DioException catch (e) {

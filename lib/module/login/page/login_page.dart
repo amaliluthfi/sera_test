@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sera_test/common/bloc/session/session_bloc.dart';
 import 'package:sera_test/core/di/setup_di.dart';
 import 'package:sera_test/core/route/route_const.dart';
+import 'package:sera_test/core/session/bloc/session/session_bloc.dart';
 import 'package:sera_test/module/login/widgets/custom_form_field.dart';
 
 import '../../../common/widgets/spacer.dart';
@@ -30,9 +30,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
         body: BlocConsumer<SessionBloc, SessionState>(
             bloc: sessionBloc,
-            listener: (contex, state) {
+            listener: (contex, state) async {
               if (state is SessionFailed) {}
               if (state is SessionDone) {
+                await sessionBloc.getUserProfile();
                 Navigator.of(context).pushNamed(RouteConst.homeRoute);
               }
             },
