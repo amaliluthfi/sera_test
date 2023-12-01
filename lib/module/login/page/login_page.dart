@@ -33,9 +33,25 @@ class _LoginPageState extends State<LoginPage> {
         body: BlocConsumer<SessionBloc, SessionState>(
             bloc: sessionBloc,
             listener: (contex, state) async {
-              if (state is SessionFailed) {}
+              if (state is SessionFailed) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        icon: const Icon(
+                          Icons.warning_rounded,
+                          color: Colors.red,
+                          size: 50,
+                        ),
+                        title: const Text("Warning"),
+                        content: Text(
+                          state.errorMessage ?? "",
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    });
+              }
               if (state is SessionDone) {
-                await sessionBloc.getUserProfile();
                 Navigator.of(context).pushNamed(RouteConst.homeRoute);
               }
             },
@@ -61,15 +77,24 @@ class _LoginPageState extends State<LoginPage> {
                         const SpaceH16(),
                         ElevatedButton(
                           onPressed: () {
-                            sessionBloc.login();
+                            if (state is! SessionLoading) {
+                              sessionBloc.login();
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                               fixedSize: Size(
                                   MediaQuery.sizeOf(context).width / 1, 30)),
-                          child: const Text(
-                            "Log in",
-                            style: TextStyle(fontSize: 18),
-                          ),
+                          child: state is! SessionLoading
+                              ? const Text(
+                                  "Log in",
+                                  style: TextStyle(fontSize: 18),
+                                )
+                              : const SizedBox(
+                                  height: 13,
+                                  width: 13,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  )),
                         )
                       ],
                     ),

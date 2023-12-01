@@ -18,9 +18,10 @@ final class SelectCategory extends HomeEvents {
 final class ProductFetched extends HomeEvents {}
 
 final class ProductAddtoCart extends HomeEvents {
-  ProductAddtoCart({required this.product});
+  ProductAddtoCart({required this.product, required this.context});
 
   final Product product;
+  final BuildContext context;
 }
 
 final class DeleteFromCart extends HomeEvents {

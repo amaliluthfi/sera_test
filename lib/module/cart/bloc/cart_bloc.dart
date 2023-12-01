@@ -26,7 +26,6 @@ class CartBloc extends Bloc<CartEvents, CartState> {
   _onAddCart(AddCart event, Emitter<CartState> emit) {
     if (!state.cart.any((element) => element.id == event.data.id)) {
       event.data.quantity = 1;
-      state.cart.add(event.data);
       _cartRepo.addCartRepo(data: event.data);
       emit(state.copyWith(cart: state.cart));
     }

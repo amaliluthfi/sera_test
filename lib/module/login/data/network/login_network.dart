@@ -16,12 +16,12 @@ class SessionNetwork {
     }
   }
 
-  Future<Profile> getUserProfile() async {
+  Future<Profile> getUserProfile({required String token}) async {
     try {
-      var res = await _network.get(path: "/auth/profile");
-      debugPrint("ini profile $res");
+      var res = await _network.get(path: "/auth/profile", token: token);
       return profileFromJson(res);
     } catch (e) {
+      debugPrint(e.toString());
       rethrow;
     }
   }

@@ -24,24 +24,10 @@ class SessionBloc extends Cubit<SessionState> {
       accessToken = res["access_token"];
       saveToken(
           refreshToken: res["refresh_token"], accessToken: res["access_token"]);
+      await getUserProfile(token: res["access_token"]);
       emit(SessionDone(successMessage: "Success login!"));
     } catch (e) {
       emit(SessionFailed(errorMessage: e.toString()));
-      debugPrint(e.toString());
-    }
-  }
-
-  Future<void> checkSession() async {
-    try {
-      debugPrint("checking session...");
-      emit(SessionLoading());
-      var res = _sessionRepo.getAccessTokenRepo();
-      if (res != null) {
-        accessToken = res;
-        emit(SessionDone());
-      }
-      debugPrint("checking complete $accessToken");
-    } catch (e) {
       debugPrint(e.toString());
     }
   }
@@ -51,9 +37,9 @@ class SessionBloc extends Cubit<SessionState> {
     _sessionRepo.saveRefreshTokenRepo(refreshToken);
   }
 
-  Future<void> getUserProfile() async {
+  Future<void> getUserProfile({required String token}) async {
     try {
-      profile = await _sessionRepo.getUserProfileRepo();
+      profile = await _sessionRepo.getUserProfileRepo(token: token);
     } catch (e) {
       rethrow;
     }

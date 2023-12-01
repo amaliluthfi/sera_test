@@ -29,9 +29,9 @@ class SessionRepo {
     await _storage.saveRefreshToken(refreshToken);
   }
 
-  Future<Profile> getUserProfileRepo() async {
+  Future<Profile> getUserProfileRepo({required String token}) async {
     try {
-      return await _network.getUserProfile();
+      return await _network.getUserProfile(token: token);
     } catch (e) {
       rethrow;
     }

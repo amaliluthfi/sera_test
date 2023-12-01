@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:sera_test/common/models/product_model.dart';
 import 'package:sera_test/core/session/bloc/session/session_bloc.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:sera_test/core/storage/app_storage.dart';
 import 'package:sera_test/module/cart/bloc/cart_bloc.dart';
 import 'package:sera_test/module/detail/bloc/detail_bloc.dart';
 import 'package:sera_test/module/home/bloc/home_bloc.dart';
@@ -20,6 +21,7 @@ class DISetup {
     getIt.registerLazySingleton<SearchBloc>(() => SearchBloc());
     getIt.registerLazySingleton<DetailBloc>(() => DetailBloc());
     getIt.registerLazySingleton<CartBloc>(() => CartBloc());
+    getIt.registerSingleton<AppStorage>(AppStorage());
   }
 
   static hiveInit() async {

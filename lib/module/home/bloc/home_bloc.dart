@@ -79,6 +79,23 @@ class HomeBloc extends Bloc<HomeEvents, HomeState> {
 
       getIt<CartBloc>().add(AddCart(data: event.product));
       emit(state.copyWith(product: state.product));
+
+      showDialog(
+          context: event.context,
+          builder: (context) {
+            return const AlertDialog(
+              icon: Icon(
+                Icons.check_circle_rounded,
+                color: Colors.green,
+                size: 50,
+              ),
+              title: Text("Success"),
+              content: Text(
+                "add to cart sucess",
+                textAlign: TextAlign.center,
+              ),
+            );
+          });
     }
   }
 
