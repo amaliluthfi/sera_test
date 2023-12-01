@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (create) => CartBloc())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Shop IT',
         routes: AppRoute(context).routes,
         onGenerateRoute: (settings) {
