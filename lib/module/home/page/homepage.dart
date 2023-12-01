@@ -56,7 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.of(context).pushNamed(RouteConst.searchRoute),
                     icon: const Icon(Icons.search_rounded)),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(RouteConst.cartRoute),
                     icon: const Icon(Icons.shopping_cart_outlined))
               ],
             ),

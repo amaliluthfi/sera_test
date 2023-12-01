@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sera_test/common/models/profile_model.dart';
-import 'package:sera_test/core/session/storage/session_storage.dart';
+import 'package:sera_test/core/storage/app_storage.dart';
 import 'package:sera_test/module/login/data/network/login_network.dart';
 
 class SessionRepo {
   final _network = SessionNetwork();
-  final _storage = SessionStorage();
+  final _storage = AppStorage();
 
   Future<Map<String, dynamic>> loginRepo(
       {required Map<String, dynamic> data}) async {

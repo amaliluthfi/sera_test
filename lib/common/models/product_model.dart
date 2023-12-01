@@ -4,28 +4,44 @@
 
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
+
+part 'product_model.g.dart';
+
 List<Product> productFromJson(String str) =>
     List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
 
 String productToJson(List<Product> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+@HiveType(typeId: 0)
 class Product {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? title;
+  @HiveField(2)
   int? price;
+  @HiveField(3)
   String? description;
+  @HiveField(4)
   Category? category;
+  @HiveField(5)
   List<String>? images;
+  @HiveField(6)
+  bool? addedToCart;
+  @HiveField(7)
+  int quantity;
 
-  Product({
-    this.id,
-    this.title,
-    this.price,
-    this.description,
-    this.category,
-    this.images,
-  });
+  Product(
+      {this.id,
+      this.title,
+      this.price,
+      this.description,
+      this.category,
+      this.images,
+      this.addedToCart = false,
+      this.quantity = 0});
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
@@ -51,9 +67,13 @@ class Product {
       };
 }
 
+@HiveType(typeId: 1)
 class Category {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? name;
+  @HiveField(2)
   String? image;
 
   Category({

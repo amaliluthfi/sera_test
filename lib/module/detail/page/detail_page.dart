@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sera_test/common/models/product_model.dart';
 import 'package:sera_test/common/widgets/spacer.dart';
+import 'package:sera_test/core/di/setup_di.dart';
+import 'package:sera_test/module/cart/bloc/cart_bloc.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key, this.id, this.data});
@@ -77,6 +79,14 @@ class _DetailPageState extends State<DetailPage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green[400], foregroundColor: Colors.white),
+        child: const Text("Add to cart"),
+        onPressed: () {
+          getIt<CartBloc>().add(AddCart(data: item));
+        },
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'package:sera_test/core/di/setup_di.dart';
 import 'package:sera_test/core/route/app_route.dart';
 import 'package:sera_test/core/route/route_const.dart';
 import 'package:sera_test/core/session/bloc/session/session_bloc.dart';
+import 'package:sera_test/module/cart/bloc/cart_bloc.dart';
+import 'package:sera_test/module/detail/bloc/detail_bloc.dart';
 import 'package:sera_test/module/detail/page/detail_page.dart';
 import 'package:sera_test/module/home/bloc/home_bloc.dart';
 import 'package:sera_test/module/search/bloc/search_bloc.dart';
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => SessionBloc()),
         BlocProvider(create: (context) => HomeBloc()),
-        BlocProvider(create: (create) => SearchBloc())
+        BlocProvider(create: (create) => SearchBloc()),
+        BlocProvider(create: (create) => DetailBloc()),
+        BlocProvider(create: (create) => CartBloc())
       ],
       child: MaterialApp(
         title: 'Shop IT',
@@ -32,16 +36,13 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (settings) {
           if (settings.name == RouteConst.detailRoute) {
             final args = settings.arguments;
-
-            print("ini arg $args");
-
             return MaterialPageRoute(
               builder: (context) {
                 return DetailPage(data: args as Product);
               },
             );
           }
-          // assert(false, 'Need to implement ${settings.name}');
+          assert(false, 'Need to implement ${settings.name}');
           return null;
         },
         initialRoute: RouteConst.loginRoute,

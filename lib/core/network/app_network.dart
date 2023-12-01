@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:sera_test/core/session/storage/session_storage.dart';
+import 'package:sera_test/core/storage/app_storage.dart';
 
 class AppNetwork {
   final String url = "https://api.escuelajs.co/api/v1";
-  final String? _accessToken = SessionStorage().getAccessToken();
+  final String? _accessToken = AppStorage().getAccessToken();
   final Dio _dio = Dio();
 
   Future get(

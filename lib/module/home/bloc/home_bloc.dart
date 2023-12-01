@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sera_test/common/models/product_model.dart';
+import 'package:sera_test/core/di/setup_di.dart';
+import 'package:sera_test/module/cart/bloc/cart_bloc.dart';
 import 'package:sera_test/module/home/data/models/category_model.dart';
 import 'package:sera_test/module/home/repo/home_repo.dart';
 
@@ -9,9 +11,10 @@ part 'home_events.dart';
 
 class HomeBloc extends Bloc<HomeEvents, HomeState> {
   HomeBloc() : super(const HomeState()) {
-    debugPrint("enter homebloc");
     on<OnFetched>(_onFetched);
     on<SelectCategory>(_selectCategory);
+    on<ProductAddtoCart>(_onProductAddtoCart);
+    on<DeleteFromCart>(_onDeleteFromCart);
   }
   final _homeRepo = HomeRepo();
 
@@ -64,5 +67,29 @@ class HomeBloc extends Bloc<HomeEvents, HomeState> {
     } catch (e) {
       emit(state.copyWith(status: HomeStatus.failure));
     }
+  }
+
+  _onProductAddtoCart(ProductAddtoCart event, Emitter<HomeState> emit) {
+    if (event.product.addedToCart == false) {
+      for (var element in state.product) {
+        if (element.id == event.product.id) {
+          element.addedToCart = true;
+        }
+      }
+
+      getIt<CartBloc>().add(AddCart(data: event.product));
+      emit(state.copyWith(product: state.product));
+    }
+  }
+
+  _onDeleteFromCart(DeleteFromCart event, Emitter<HomeState> emit) {
+    for (var element in state.product) {
+      if (element.id == event.id) {
+        element.quantity = 0;
+        element.addedToCart = false;
+      }
+    }
+
+    emit(state.copyWith(product: state.product));
   }
 }

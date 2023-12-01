@@ -5,5 +5,5 @@ part 'detail_event.dart';
 part 'detail_state.dart';
 
 class DetailBloc extends Bloc<DetailEvents, DetailState> {
-  DetailBloc() : super(DetailState());
+  DetailBloc() : super(const DetailState());
 }
