@@ -39,11 +39,11 @@ class HomeBloc extends Bloc<HomeEvents, HomeState> {
 
       state.categories[event.index].selected =
           !state.categories[event.index].selected;
-      state.categories.forEach((element) {
+      for (var element in state.categories) {
         if (element.id != state.categories[event.index].id) {
           element.selected = false;
         }
-      });
+      }
 
       List<Product> res;
 

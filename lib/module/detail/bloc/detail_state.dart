@@ -1,23 +1,23 @@
 // ignore_for_file: override_on_non_overriding_member
 
-part of 'search_bloc.dart';
+part of 'detail_bloc.dart';
 
-enum SearchStatus { initial, success, failure, productLoading }
+enum DetailStatus { initial, success, failure }
 
-final class SearchState {
-  const SearchState({
-    this.status = SearchStatus.initial,
+final class DetailState {
+  const DetailState({
+    this.status = DetailStatus.initial,
     this.product = const <Product>[],
   });
 
-  final SearchStatus status;
+  final DetailStatus status;
   final List<Product> product;
 
-  SearchState copyWith({
-    SearchStatus? status,
+  DetailState copyWith({
+    DetailStatus? status,
     List<Product>? product,
   }) {
-    return SearchState(
+    return DetailState(
       status: status ?? this.status,
       product: product ?? this.product,
     );

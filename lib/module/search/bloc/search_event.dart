@@ -1,3 +1,5 @@
+// ignore_for_file: override_on_non_overriding_member
+
 part of 'search_bloc.dart';
 
 sealed class SearchEvents {

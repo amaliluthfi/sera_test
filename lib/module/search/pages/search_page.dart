@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:sera_test/common/models/product_model.dart';
 import 'package:sera_test/common/widgets/loading_bar.dart';
 import 'package:sera_test/core/di/setup_di.dart';
