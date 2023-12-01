@@ -73,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                         CustomFormField(
                           label: "password",
                           controller: sessionBloc.password,
+                          isPassword: true,
                         ),
                         const SpaceH16(),
                         ElevatedButton(
